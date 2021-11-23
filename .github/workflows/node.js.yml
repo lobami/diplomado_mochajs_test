@@ -1,7 +1,8 @@
-name: Test
-'on':
+name: Tests
+on:
   push:
-    - main
+    branches:
+      - main
 jobs:
   test:
     name: 'Nodejs v${{ matrix.node }}'
@@ -20,10 +21,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json')}}
+          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-v${{ matrix.node}}-
-      - name: Instalando Dependencias
+            ${{ runner.os }}-node-v${{ matrix.node }}-
+      - name: Install dependences
         run: npm install
-      - name: Ejecutando los test de nuestros proyectos
+      - name: Start the tests
         run: npm run test
